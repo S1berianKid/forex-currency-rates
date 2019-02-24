@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data class="QuoteBinding">
+
+        <import
+                type="com.example.mikhail.currencyexchangerate.utils.DateUtils"/>
+
+        <variable
+                name="quote"
+                type="com.example.mikhail.currencyexchangerate.ui.quotes.QuotesListItemViewModel"/>
+
+        <variable
+                name="onItemClickListener"
+                type="com.example.mikhail.currencyexchangerate.ui.quotes.QuotesAdapter.OnItemClickListener"/>
+    </data>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical"
+            android:layout_margin="8sp"
+            android:onClick="@{()->onItemClickListener.onItemClick(quote.symbol.toString())}">
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <TextView
+                    android:id="@+id/tv_symbol"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{quote.symbol.toString()}"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="18sp"
+                    android:textStyle="bold" android:layout_weight="1"/>
+            <TextView
+                    android:id="@+id/tv_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:text="@{quote.price.toString()}" android:layout_weight="1"/>
+        </LinearLayout>
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <TextView
+                    android:id="@+id/tv_bid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{`bid: ` + quote.bid.toString()}"/>
+            <TextView
+                    android:id="@+id/tv_ask"
+                    android:layout_marginLeft="4sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{`ask: ` + quote.ask.toString()}" android:layout_marginStart="4sp"/>
+        </LinearLayout>
+
+        <TextView
+                android:id="@+id/tv_timestamp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{DateUtils.format(quote.timestamp)}"/>
+
+    </LinearLayout>
+
+</layout>
+
+
+
