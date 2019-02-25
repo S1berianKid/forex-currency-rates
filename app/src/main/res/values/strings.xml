@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Currency Exchange Rate</string>
+    <string name="app_name">Currency Quotes</string>
     <string name="bid_item_currency">bid: </string>
     <string name="ask_item_currency">ask: </string>
 </resources>

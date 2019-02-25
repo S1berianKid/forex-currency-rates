@@ -18,7 +18,4 @@ class QuotesListItemViewModel(item: Quote) {
         timestamp = item.timestamp
     }
 
-    companion object {
-        private val FIRST_OWNER_INDEX = 0
-    }
 }

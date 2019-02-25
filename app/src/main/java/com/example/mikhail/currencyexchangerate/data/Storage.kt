@@ -20,6 +20,7 @@ class Storage(private val mForexDao: ForexDao) {
     }
 
     fun insertQuotesValues(quotes: List<Quote>) {
+        //mForexDao.insertQuoteValues(quotes.get(0))
         mForexDao.insertQuotesValues(quotes)
     }
 

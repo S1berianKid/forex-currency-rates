@@ -23,4 +23,7 @@ interface ForexDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertQuotesValues(quotes: List<Quote>)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertQuoteValues(quotes: Quote)
+
 }

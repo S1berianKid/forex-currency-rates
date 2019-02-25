@@ -3,14 +3,12 @@ package com.example.mikhail.currencyexchangerate.ui.quotes
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import android.arch.paging.PagedList
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 
 import com.example.mikhail.currencyexchangerate.data.Storage
 import com.example.mikhail.currencyexchangerate.data.model.Quote
-import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 
 import io.reactivex.schedulers.Schedulers
@@ -88,15 +86,15 @@ class QuotesViewModel(mStorage: Storage, val onItemClickListener: QuotesAdapter.
 
         mCompositeDisposable.add(
             mModel.loadQuotesValues(visibleCurrencies)
-                .delay(10000, TimeUnit.MILLISECONDS)
+                .delay(2000, TimeUnit.MILLISECONDS)
                 .subscribeOn(Schedulers.io())
                 .repeat()
                 .subscribe(
                     { response -> mModel.addQuotesValues(response) },
-                    { isErrorVisible.postValue(true) })
-        )
+                    { isErrorVisible.postValue(true) }))
 
     }
+
 
     public override fun onCleared() {
         mCompositeDisposable.dispose()

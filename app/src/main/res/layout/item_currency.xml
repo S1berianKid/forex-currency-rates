@@ -4,7 +4,8 @@
     <data class="QuoteBinding">
 
         <import
-                type="com.example.mikhail.currencyexchangerate.utils.DateUtils"/>
+                alias="Utils"
+                type="com.example.mikhail.currencyexchangerate.utils.Utils"/>
 
         <variable
                 name="quote"
@@ -18,9 +19,8 @@
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:orientation="vertical"
-            android:layout_margin="8sp"
+            android:layout_margin="4sp"
             android:onClick="@{()->onItemClickListener.onItemClick(quote.symbol.toString())}">
 
         <LinearLayout
@@ -34,13 +34,17 @@
                     android:text="@{quote.symbol.toString()}"
                     android:textColor="@color/colorAccent"
                     android:textSize="18sp"
+                    android:layout_margin="2sp"
                     android:textStyle="bold" android:layout_weight="1"/>
             <TextView
                     android:id="@+id/tv_price"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
-                    android:text="@{quote.price.toString()}" android:layout_weight="1"/>
+                    android:layout_margin="2sp"
+                    android:gravity="end"
+                    android:text="@{Utils.formatDouble(quote.price)}" android:layout_weight="1"
+                    android:textStyle="bold"/>
         </LinearLayout>
 
         <LinearLayout
@@ -51,20 +55,22 @@
                     android:id="@+id/tv_bid"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{`bid: ` + quote.bid.toString()}"/>
+                    android:layout_margin="2sp"
+                    android:text="@{`bid: ` + Utils.formatDouble(quote.bid)}"/>
             <TextView
                     android:id="@+id/tv_ask"
-                    android:layout_marginLeft="4sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{`ask: ` + quote.ask.toString()}" android:layout_marginStart="4sp"/>
+                    android:layout_margin="2sp"
+                    android:text="@{`ask: ` + Utils.formatDouble(quote.ask)}"/>
         </LinearLayout>
 
         <TextView
                 android:id="@+id/tv_timestamp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{DateUtils.format(quote.timestamp)}"/>
+                android:layout_margin="2sp"
+                android:text="@{Utils.formatDate(quote.timestamp)}"/>
 
     </LinearLayout>
 

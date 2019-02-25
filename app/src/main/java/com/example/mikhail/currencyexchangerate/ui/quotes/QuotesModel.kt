@@ -15,7 +15,7 @@ class QuotesModel(private var mStorage: Storage) {
     }
 
     fun loadQuotesValues(currencies: AtomicReference<String>): Flowable<List<Quote>> {
-        return ApiUtils.apiService.getQuotesValues(currencies);
+        return ApiUtils.apiService.getQuotesValuesAtomic(currencies);
     }
 
     fun addQuotesNames(quotesNames: List<String>) {
@@ -29,11 +29,5 @@ class QuotesModel(private var mStorage: Storage) {
     fun addQuotesValues(quotes: List<Quote>) {
         mStorage.insertQuotesValues(quotes)
     }
-
-    /*
-    private fun updateCurrencies(): Single<List<Quote>>? {
-        return ApiUtils.apiService.getMQuotes(visibleCurrencies)
-    }
-    */
 
 }

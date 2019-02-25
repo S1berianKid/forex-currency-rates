@@ -1,13 +1,14 @@
 package com.example.mikhail.currencyexchangerate.utils
 
-import android.arch.lifecycle.LiveData
-import android.arch.paging.PagedList
 import android.databinding.BindingAdapter
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import com.example.mikhail.currencyexchangerate.data.model.Quote
 import com.example.mikhail.currencyexchangerate.ui.quotes.QuotesAdapter
+import android.support.v7.widget.DividerItemDecoration
+
+
 
 object CustomBindingAdapter {
 
@@ -18,10 +19,30 @@ object CustomBindingAdapter {
         quotes: List<Quote>?,
         clickListener: QuotesAdapter.OnItemClickListener?
     ) {
-        val adapter = QuotesAdapter(clickListener)
-        adapter.submitList(quotes)
-        recyclerView?.layoutManager = LinearLayoutManager(recyclerView?.context)
-        recyclerView?.adapter = adapter
+
+        // Добавляем декоратор
+        if (recyclerView?.itemDecorationCount == 0) {
+            recyclerView.addItemDecoration(
+                DividerItemDecoration(
+                    recyclerView.getContext(),
+                    DividerItemDecoration.VERTICAL
+                )
+            )
+        }
+
+        // Присваиваем адаптер
+        if (recyclerView?.adapter == null) {
+            recyclerView?.adapter = QuotesAdapter(clickListener)
+        }
+
+        // Заполняем адаптер
+        (recyclerView?.adapter as QuotesAdapter).submitList(quotes)
+
+        // Добавляем LayoutManager
+        if (recyclerView.layoutManager == null) {
+            recyclerView.layoutManager = LinearLayoutManager(recyclerView.context)
+        }
+
     }
 
     @BindingAdapter("bind:scrollHandler")
