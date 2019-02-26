@@ -8,8 +8,6 @@ import com.example.mikhail.currencyexchangerate.data.model.Quote
 import com.example.mikhail.currencyexchangerate.ui.quotes.QuotesAdapter
 import android.support.v7.widget.DividerItemDecoration
 
-
-
 object CustomBindingAdapter {
 
     @BindingAdapter("bind:data", "bind:clickHandler")
@@ -20,7 +18,6 @@ object CustomBindingAdapter {
         clickListener: QuotesAdapter.OnItemClickListener?
     ) {
 
-        // Добавляем декоратор
         if (recyclerView?.itemDecorationCount == 0) {
             recyclerView.addItemDecoration(
                 DividerItemDecoration(
@@ -30,15 +27,12 @@ object CustomBindingAdapter {
             )
         }
 
-        // Присваиваем адаптер
         if (recyclerView?.adapter == null) {
             recyclerView?.adapter = QuotesAdapter(clickListener)
         }
 
-        // Заполняем адаптер
         (recyclerView?.adapter as QuotesAdapter).submitList(quotes)
 
-        // Добавляем LayoutManager
         if (recyclerView.layoutManager == null) {
             recyclerView.layoutManager = LinearLayoutManager(recyclerView.context)
         }

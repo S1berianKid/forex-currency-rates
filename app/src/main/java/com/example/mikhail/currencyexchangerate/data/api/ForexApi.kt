@@ -16,7 +16,4 @@ interface ForexApi {
     @GET("1.0.3/quotes")
     fun getQuotesValuesAtomic(@Query("pairs") quotes: AtomicReference<String>): Flowable<List<Quote>>
 
-    @GET("1.0.3/quotes")
-    fun getQuotesValues(@Query("pairs") quotes: String): Flowable<List<Quote>>
-
 }

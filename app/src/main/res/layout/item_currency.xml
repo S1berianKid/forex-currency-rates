@@ -3,10 +3,6 @@
 
     <data class="QuoteBinding">
 
-        <import
-                alias="Utils"
-                type="com.example.mikhail.currencyexchangerate.utils.Utils"/>
-
         <variable
                 name="quote"
                 type="com.example.mikhail.currencyexchangerate.ui.quotes.QuotesListItemViewModel"/>
@@ -31,7 +27,7 @@
                     android:id="@+id/tv_symbol"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{quote.symbol.toString()}"
+                    android:text="@{quote.symbol}"
                     android:textColor="@color/colorAccent"
                     android:textSize="18sp"
                     android:layout_margin="2sp"
@@ -43,7 +39,7 @@
                     android:textSize="18sp"
                     android:layout_margin="2sp"
                     android:gravity="end"
-                    android:text="@{Utils.formatDouble(quote.price)}" android:layout_weight="1"
+                    android:text="@{quote.price}" android:layout_weight="1"
                     android:textStyle="bold"/>
         </LinearLayout>
 
@@ -56,13 +52,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="2sp"
-                    android:text="@{`bid: ` + Utils.formatDouble(quote.bid)}"/>
+                    android:text="@{`bid: ` + quote.bid}"/>
             <TextView
                     android:id="@+id/tv_ask"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="2sp"
-                    android:text="@{`ask: ` + Utils.formatDouble(quote.ask)}"/>
+                    android:text="@{`ask: ` + quote.ask}"/>
         </LinearLayout>
 
         <TextView
@@ -70,7 +66,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="2sp"
-                android:text="@{Utils.formatDate(quote.timestamp)}"/>
+                android:text="@{quote.timestamp}"/>
 
     </LinearLayout>
 

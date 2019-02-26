@@ -1,7 +1,6 @@
 package com.example.mikhail.currencyexchangerate.data.database
 
 import android.arch.lifecycle.LiveData
-import android.arch.paging.DataSource
 import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Insert
 import android.arch.persistence.room.OnConflictStrategy
@@ -13,9 +12,6 @@ interface ForexDao {
 
     @Query("select * from quote order by symbol")
     fun getQuotes(): LiveData<List<Quote>>
-
-    @Query("select * from quote order by symbol")
-    fun getQuotesPaged(): DataSource.Factory<Int, Quote>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertQuotesNames(quotes: List<Quote>)

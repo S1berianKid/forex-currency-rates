@@ -1,21 +1,24 @@
 package com.example.mikhail.currencyexchangerate.ui.quotes
 
 import com.example.mikhail.currencyexchangerate.data.model.Quote
+import com.example.mikhail.currencyexchangerate.utils.Utils
 
-class QuotesListItemViewModel(item: Quote) {
+data class QuotesListItemViewModel(val item: Quote) {
 
-    val symbol: String?
-    val price: Double?
-    val ask: Double?
-    val bid: Double?
-    val timestamp: Int?
+    val symbol: String? = item.symbol
 
-    init {
-        symbol = item.symbol
-        price = item.price
-        ask = item.ask
-        bid = item.bid
-        timestamp = item.timestamp
-    }
+    val price: String?
+        get() = Utils.formatDouble(item.price)
+
+    val ask: String?
+        get() =
+            Utils.formatDouble(item.ask)
+
+    val bid: String?
+        get() =
+            Utils.formatDouble(item.bid)
+
+    val timestamp: String?
+        get() = Utils.formatDate(item.timestamp)
 
 }

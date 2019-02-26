@@ -20,7 +20,6 @@ class QuotesViewModel(mStorage: Storage, val onItemClickListener: QuotesAdapter.
     private var mCompositeDisposable: CompositeDisposable = CompositeDisposable()
     var mModel: QuotesModel = QuotesModel(mStorage)
     var mQuotes: LiveData<List<Quote>> = mStorage.quotes
-    /*var mQuotes: LiveData<PagedList<Quote>> = mStorage.quotesPaged*/
     val isLoading = MutableLiveData<Boolean>()
     val isErrorVisible = MutableLiveData<Boolean>()
     val visibleCurrencies: AtomicReference<String> = AtomicReference()

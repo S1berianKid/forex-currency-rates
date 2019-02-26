@@ -23,7 +23,7 @@ abstract class SingleFragmentActivity : AppCompatActivity() {
 
     }
 
-    fun changeFragment(fragment: Fragment) {
+    private fun changeFragment(fragment: Fragment) {
         val addToBackStack = supportFragmentManager.findFragmentById(R.id.fragmentContainer) != null
 
         val transaction = supportFragmentManager
