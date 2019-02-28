@@ -9,21 +9,23 @@ object Utils {
 
     fun formatDate(time: Int?): String {
 
-        var strDate = ""
-
-        if (time != null) {
+        return if (time != null) {
             val date = Date(time.times(1000L))
             val sdf = SimpleDateFormat("dd.MM.yyyy HH:mm:ss", Locale.getDefault())
-            strDate = sdf.format(date)
+            sdf.format(date)
+        } else {
+            ""
         }
-
-        return strDate
 
     }
 
     fun formatDouble(double: Double?): String {
-        val format = DecimalFormat("0.00000")
-        return format.format(double)
+        return if (double != null) {
+            val format = DecimalFormat("0.00000")
+            format.format(double)
+        } else {
+            ""
+        }
     }
 
 

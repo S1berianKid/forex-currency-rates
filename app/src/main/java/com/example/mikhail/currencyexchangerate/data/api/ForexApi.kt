@@ -2,7 +2,6 @@ package com.example.mikhail.currencyexchangerate.data.api
 
 import com.example.mikhail.currencyexchangerate.data.model.Quote
 import io.reactivex.Flowable
-import io.reactivex.Observable
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -14,6 +13,6 @@ interface ForexApi {
     fun getQuotesNames(): Single<List<String>>
 
     @GET("1.0.3/quotes")
-    fun getQuotesValuesAtomic(@Query("pairs") quotes: AtomicReference<String>): Flowable<List<Quote>>
+    fun getQuotesValuesAtomic(@Query("pairs") quotes: AtomicReference<String>): Single<List<Quote>>
 
 }

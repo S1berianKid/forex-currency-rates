@@ -32,7 +32,7 @@
                 android:layout_height="match_parent"
                 android:visibility="@{vm.isErrorVisible ? V.GONE : V.VISIBLE}"
                 bind:clickHandler="@{vm.onItemClickListener}"
-                bind:data="@{vm.MQuotes}"
+                bind:data="@{vm.quotes}"
                 bind:scrollHandler="@{vm.onScrollListener}"/>
 
             <include

@@ -8,11 +8,11 @@ import com.example.mikhail.currencyexchangerate.ui.quotes.QuotesAdapter
 import com.example.mikhail.currencyexchangerate.ui.quotes.QuotesViewModel
 
 class CustomFactory(
-    private val mStorage: Storage,
-    private val mOnItemClickListener: QuotesAdapter.OnItemClickListener?
+    private val storage: Storage,
+    private val onItemClickListener: QuotesAdapter.OnItemClickListener?
 ) : ViewModelProvider.NewInstanceFactory() {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return QuotesViewModel(mStorage, mOnItemClickListener) as T
+        return QuotesViewModel(storage, onItemClickListener) as T
     }
 }

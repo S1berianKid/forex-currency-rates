@@ -5,17 +5,17 @@ import android.arch.lifecycle.LiveData
 import com.example.mikhail.currencyexchangerate.data.database.ForexDao
 import com.example.mikhail.currencyexchangerate.data.model.Quote
 
-class Storage(private val mForexDao: ForexDao) {
+class Storage(private val forexDao: ForexDao) {
 
     val quotes: LiveData<List<Quote>>
-        get() = mForexDao.getQuotes()
+        get() = forexDao.getQuotes()
 
     fun insertQuotesNames(quotes: List<Quote>) {
-        mForexDao.insertQuotesNames(quotes)
+        forexDao.insertQuotesNames(quotes)
     }
 
     fun insertQuotesValues(quotes: List<Quote>) {
-        mForexDao.insertQuotesValues(quotes)
+        forexDao.insertQuotesValues(quotes)
     }
 
     interface StorageOwner {

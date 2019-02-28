@@ -15,9 +15,9 @@ import com.example.mikhail.currencyexchangerate.utils.CustomFactory
 
 class QuotesFragment : Fragment() {
 
-    private var mQuotesViewModel: QuotesViewModel? = null
+    private var quotesViewModel: QuotesViewModel? = null
 
-    private val mOnItemClickListener = object : QuotesAdapter.OnItemClickListener {
+    private val onItemClickListener = object : QuotesAdapter.OnItemClickListener {
         override fun onItemClick(symbol: String) {
             Toast.makeText(context, symbol, Toast.LENGTH_LONG).show()
         }
@@ -27,14 +27,14 @@ class QuotesFragment : Fragment() {
         super.onAttach(context)
         if (context is Storage.StorageOwner) {
             val storage = (context as Storage.StorageOwner).obtainStorage()
-            val factory = CustomFactory(storage, mOnItemClickListener)
-            mQuotesViewModel = ViewModelProviders.of(this, factory).get(QuotesViewModel::class.java)
+            val factory = CustomFactory(storage, onItemClickListener)
+            quotesViewModel = ViewModelProviders.of(this, factory).get(QuotesViewModel::class.java)
         }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = QuotesBinding.inflate(inflater, container, false)
-        binding.vm = mQuotesViewModel
+        binding.vm = quotesViewModel
         binding.lifecycleOwner = this
         return binding.root
     }

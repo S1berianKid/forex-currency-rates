@@ -21,7 +21,7 @@ object CustomBindingAdapter {
         if (recyclerView?.itemDecorationCount == 0) {
             recyclerView.addItemDecoration(
                 DividerItemDecoration(
-                    recyclerView.getContext(),
+                    recyclerView.context,
                     DividerItemDecoration.VERTICAL
                 )
             )

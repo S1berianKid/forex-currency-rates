@@ -17,9 +17,10 @@ import java.util.concurrent.atomic.AtomicReference
 
 class QuotesViewModel(mStorage: Storage, val onItemClickListener: QuotesAdapter.OnItemClickListener?) : ViewModel() {
 
-    private var mCompositeDisposable: CompositeDisposable = CompositeDisposable()
-    var mModel: QuotesModel = QuotesModel(mStorage)
-    var mQuotes: LiveData<List<Quote>> = mStorage.quotes
+    private var compositeDisposable: CompositeDisposable = CompositeDisposable()
+    var model: QuotesModel = QuotesModel(mStorage)
+    var quotes: LiveData<List<Quote>> = mStorage.quotes
+
     val isLoading = MutableLiveData<Boolean>()
     val isErrorVisible = MutableLiveData<Boolean>()
     val visibleCurrencies: AtomicReference<String> = AtomicReference()
@@ -42,9 +43,9 @@ class QuotesViewModel(mStorage: Storage, val onItemClickListener: QuotesAdapter.
 
             for (i in firstVisiblePosition..lastVisiblePosition) {
 
-                currencies = currencies.plus(mQuotes.value?.get(i)?.symbol)
+                currencies = currencies.plus(quotes.value?.get(i)?.symbol)
 
-                if (!i.equals(lastVisiblePosition)) {
+                if (i != lastVisiblePosition) {
                     currencies = currencies.plus(",")
                 }
             }
@@ -64,8 +65,8 @@ class QuotesViewModel(mStorage: Storage, val onItemClickListener: QuotesAdapter.
     // Загружаем все названия котировок и сохраняем их в локальную базу
     private fun loadQuotesNames() {
 
-        mCompositeDisposable.add(
-            mModel.loadQuotesNames()
+        compositeDisposable.add(
+            model.loadQuotesNames()
                 .doOnSubscribe { isLoading.postValue(true) }
                 .doOnError { isLoading.postValue(true) }
                 .doFinally { isLoading.postValue(false) }
@@ -73,7 +74,7 @@ class QuotesViewModel(mStorage: Storage, val onItemClickListener: QuotesAdapter.
                 .subscribeOn(Schedulers.io())
                 .subscribe(
                     { response ->
-                        mModel.addQuotesNames(response)
+                        model.addQuotesNames(response)
                     },
                     { isErrorVisible.postValue(true) })
         )
@@ -83,19 +84,19 @@ class QuotesViewModel(mStorage: Storage, val onItemClickListener: QuotesAdapter.
     // Загружаем все значения котировок. Первая загрузка без фильтра, все последующие - с фильтром
     private fun loadQuotesValues() {
 
-        mCompositeDisposable.add(
-            mModel.loadQuotesValues(visibleCurrencies)
+        compositeDisposable.add(
+            model.loadQuotesValues(visibleCurrencies)
                 .delay(2000, TimeUnit.MILLISECONDS)
                 .subscribeOn(Schedulers.io())
                 .repeat()
                 .subscribe(
-                    { response -> mModel.addQuotesValues(response) },
+                    { response -> model.addQuotesValues(response) },
                     { isErrorVisible.postValue(true) }))
 
     }
 
 
     public override fun onCleared() {
-        mCompositeDisposable.dispose()
+        compositeDisposable.dispose()
     }
 }
