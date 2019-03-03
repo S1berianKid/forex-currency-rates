@@ -10,6 +10,10 @@ class Storage(private val forexDao: ForexDao) {
     val quotes: LiveData<List<Quote>>
         get() = forexDao.getQuotes()
 
+    fun getQuote(symbol: String?): LiveData<Quote> {
+        return forexDao.getQuote(symbol.toString())
+    }
+
     fun insertQuotesNames(quotes: List<Quote>) {
         forexDao.insertQuotesNames(quotes)
     }

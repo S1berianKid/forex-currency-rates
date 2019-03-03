@@ -14,8 +14,8 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         buildConfigField "String", "API_URL", '"https://forex.1forge.com/"'
-        buildConfigField "String", "API_KEY", '"M3AR3UChmuDA7yEFyYE1uHUUNLBS7E2a"'
-        //buildConfigField "String", "API_KEY", '"TMn1ABobYkHOhai3m9a5hvuS07nGTosE"'
+        //buildConfigField "String", "API_KEY", '"M3AR3UChmuDA7yEFyYE1uHUUNLBS7E2a"'
+        buildConfigField "String", "API_KEY", '"TMn1ABobYkHOhai3m9a5hvuS07nGTosE"'
     }
     buildTypes {
         release {

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data class="PairBinding">
+
+        <import
+                alias="V"
+                type="android.view.View"/>
+
+        <variable
+                name="viewModel"
+                type="com.example.mikhail.currencyexchangerate.ui.pair.PairViewModel"/>
+
+    </data>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/refresher"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            bind:refreshState="@{viewModel.isLoading}"
+            bind:onRefresh="@{viewModel.onRefreshListener}">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.qoute.symbol}"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.qoute.price.toString()}"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.qoute.ask.toString()}"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.qoute.bid.toString()}"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.qoute.timestamp.toString()}"/>
+
+        </LinearLayout>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+</layout>

@@ -15,19 +15,17 @@ import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicReference
 
-class QuotesViewModel(mStorage: Storage, val onItemClickListener: QuotesAdapter.OnItemClickListener?) : ViewModel() {
+class QuotesViewModel(storage: Storage, val onItemClickListener: QuotesAdapter.OnItemClickListener?) : ViewModel() {
 
     private var compositeDisposable: CompositeDisposable = CompositeDisposable()
-    var model: QuotesModel = QuotesModel(mStorage)
-    var quotes: LiveData<List<Quote>> = mStorage.quotes
+    var model: QuotesModel = QuotesModel(storage)
+    var quotes: LiveData<List<Quote>> = storage.quotes
 
     val isLoading = MutableLiveData<Boolean>()
     val isErrorVisible = MutableLiveData<Boolean>()
     val visibleCurrencies: AtomicReference<String> = AtomicReference()
 
-    val onRefreshListener = SwipeRefreshLayout.OnRefreshListener {
-        loadQuotesNames()
-    }
+    val onRefreshListener = SwipeRefreshLayout.OnRefreshListener { loadQuotesNames() }
 
     // При прокрутке списка сохраняем отображённые на экране котировки в атомарную переменную, со значениями которой потом работает Retrofit
     val onScrollListener = object : RecyclerView.OnScrollListener() {
@@ -59,7 +57,6 @@ class QuotesViewModel(mStorage: Storage, val onItemClickListener: QuotesAdapter.
 
     init {
         loadQuotesNames()
-        loadQuotesValues()
     }
 
     // Загружаем все названия котировок и сохраняем их в локальную базу
@@ -70,7 +67,10 @@ class QuotesViewModel(mStorage: Storage, val onItemClickListener: QuotesAdapter.
                 .doOnSubscribe { isLoading.postValue(true) }
                 .doOnError { isLoading.postValue(true) }
                 .doFinally { isLoading.postValue(false) }
-                .doOnSuccess { isErrorVisible.postValue(false) }
+                .doOnSuccess {
+                    isErrorVisible.postValue(false)
+                    loadQuotesValues()
+                }
                 .subscribeOn(Schedulers.io())
                 .subscribe(
                     { response ->
@@ -86,17 +86,18 @@ class QuotesViewModel(mStorage: Storage, val onItemClickListener: QuotesAdapter.
 
         compositeDisposable.add(
             model.loadQuotesValues(visibleCurrencies)
-                .delay(2000, TimeUnit.MILLISECONDS)
+                .delay(20000, TimeUnit.MILLISECONDS)
                 .subscribeOn(Schedulers.io())
                 .repeat()
                 .subscribe(
                     { response -> model.addQuotesValues(response) },
-                    { isErrorVisible.postValue(true) }))
+                    { isErrorVisible.postValue(true) })
+        )
 
     }
-
 
     public override fun onCleared() {
         compositeDisposable.dispose()
     }
+
 }

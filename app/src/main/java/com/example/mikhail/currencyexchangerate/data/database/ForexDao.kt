@@ -13,6 +13,9 @@ interface ForexDao {
     @Query("select * from quote order by symbol")
     fun getQuotes(): LiveData<List<Quote>>
 
+    @Query("select * from quote where symbol = :symbol order by symbol")
+    fun getQuote(symbol: String): LiveData<Quote>
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertQuotesNames(quotes: List<Quote>)
 

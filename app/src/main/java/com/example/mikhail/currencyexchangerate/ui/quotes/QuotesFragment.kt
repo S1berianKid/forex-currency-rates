@@ -2,6 +2,7 @@ package com.example.mikhail.currencyexchangerate.ui.quotes
 
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -11,15 +12,28 @@ import android.widget.Toast
 
 import com.example.mikhail.currencyexchangerate.data.Storage
 import com.example.mikhail.currencyexchangerate.databinding.QuotesBinding
+import com.example.mikhail.currencyexchangerate.ui.pair.PairActivity
+import com.example.mikhail.currencyexchangerate.ui.pair.PairFragment
 import com.example.mikhail.currencyexchangerate.utils.CustomFactory
 
 class QuotesFragment : Fragment() {
 
     private var quotesViewModel: QuotesViewModel? = null
 
+    companion object {
+
+        fun newInstance(): QuotesFragment {
+            return QuotesFragment()
+        }
+    }
+
     private val onItemClickListener = object : QuotesAdapter.OnItemClickListener {
         override fun onItemClick(symbol: String) {
-            Toast.makeText(context, symbol, Toast.LENGTH_LONG).show()
+            val intent = Intent(activity, PairActivity::class.java)
+            val args = Bundle()
+            args.putString(PairFragment.keySymbol, symbol)
+            intent.putExtra(PairActivity.keyExtra, args)
+            startActivity(intent)
         }
     }
 
@@ -37,13 +51,6 @@ class QuotesFragment : Fragment() {
         binding.vm = quotesViewModel
         binding.lifecycleOwner = this
         return binding.root
-    }
-
-    companion object {
-
-        fun newInstance(): QuotesFragment {
-            return QuotesFragment()
-        }
     }
 
 }
